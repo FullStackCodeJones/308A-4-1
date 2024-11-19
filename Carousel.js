@@ -1,37 +1,22 @@
-async function initialLoad() {
-  const breedSelect = document.getElementById("breedSelect");
+const API_KEY =
+  "live_dggLAvyNdQwDM8jptGamwBnj5jfjZGEAaDgETutEq7VXlYc8s2xBibFc6FsGcglk";
+const API_BASE_URL = "https://api.thecatapi.com/v1";
+axios.defaults.baseURL = API_BASE_URL;
+axios.defaults.headers.common["x-api-key"] = API_KEY;
 
-  try {
-    const response = await fetch("https://api.thecatapi.com/v1/breeds");
-    const breeds = await response.json();
+// DOM Elements
+const breedSelect = document.getElementById("breedSelect");
+const carouselInner = document.getElementById("carouselInner");
+const infoDump = document.getElementById("infoDump");
+const progressBar = document.getElementById("progressBar");
 
-    breeds.forEach((breed) => {
-      const.option = document.createElement("option");
-      option.value = breed.id;
-      option.textContent = breed.name;
-      breedSelect.appendChild(option);
-    });
-} catch (error) {
-  console.error("Failed to retrieve breed data:", error);
+// Progress bar update
+function updateProgress(event) {
+  if (event.lengthComputable) {
+    const percent = (event.loaded / event.total) * 100;
+    progressBar.style.width = `${percent}%`;
+  }
 }
-
-breedSelect.addEventListener("change", handleBreedSelection);
-handleBreedSelection();
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 import * as Carousel from "./Carousel.js";
 import axios from "axios";
