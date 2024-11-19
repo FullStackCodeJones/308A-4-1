@@ -18,6 +18,25 @@ function updateProgress(event) {
   }
 }
 
+// Axios interceptors for progress indication
+axios.interceptors.request.use((config) => {
+  document.body.style.cursor = "progress";
+  progressBar.style.width = "0%";
+  return config;
+});
+
+axios.interceptors.response.use(
+  (response) => {
+    document.body.style.cursor = "default";
+    progressBar.style.width = "100%";
+    return response;
+  },
+  (error) => {
+    document.body.style.cursor = "default";
+    return Promise.reject(error);
+  }
+);
+
 import * as Carousel from "./Carousel.js";
 import axios from "axios";
 
